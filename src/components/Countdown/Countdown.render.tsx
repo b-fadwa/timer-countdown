@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { ICountdownProps } from './Countdown.config';
 
-const Countdown: FC<ICountdownProps> = ({ style, className, classNames = [] }) => {
+const Countdown: FC<ICountdownProps> = ({ header, style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [value, setValue] = useState<Date>(new Date());
   const [countDown, setCountDown] = useState<{
@@ -70,7 +70,7 @@ const Countdown: FC<ICountdownProps> = ({ style, className, classNames = [] }) =
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCountDown(prevCountDown => {
+      setCountDown((prevCountDown) => {
         const newCountDown = { ...prevCountDown };
         if (newCountDown.seconds > 0) {
           newCountDown.seconds--;
@@ -99,6 +99,11 @@ const Countdown: FC<ICountdownProps> = ({ style, className, classNames = [] }) =
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>
+      <>
+        {header != null && (
+          <div className={cn('countdown-header', 'text-4xl text-center')}>{header}</div>
+        )}
+      </>
       <div className={cn('countdown-container', 'flex justify-center items-center space-x-4')}>
         <div
           className={cn(

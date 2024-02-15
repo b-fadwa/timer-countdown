@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { PiClockCountdownBold } from "react-icons/pi";
+import { PiClockCountdownBold } from 'react-icons/pi';
 
 import CountdownSettings, { BasicSettings } from './Countdown.settings';
 
@@ -56,8 +56,12 @@ export default {
     },
   },
   defaultProps: {
+    style: {
+      width: 'fit-content',
+    },
   },
 } as T4DComponentConfig<ICountdownProps>;
 
 export interface ICountdownProps extends webforms.ComponentProps {
+  header: string;
 }
