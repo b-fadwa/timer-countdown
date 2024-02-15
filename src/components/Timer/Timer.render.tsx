@@ -7,6 +7,7 @@ import { ITimerProps } from './Timer.config';
 const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [value, setValue] = useState<number>(0);
+  const [prevValue, setPrevValue] = useState<number>(0);
   const [myTimer, setTimer] = useState<any>();
   const {
     sources: { datasource: ds },
@@ -18,6 +19,7 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
     const listener = async (/* event */) => {
       const v = await ds.getValue();
       setValue(v);
+      setPrevValue(v);
     };
 
     listener();
@@ -50,11 +52,14 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
   };
 
   const resetTimer = () => {
-    console.log('Reset to 0');
+    if (myTimer) {
+      clearInterval(myTimer);
+      setTimer(null);
+      setValue(prevValue);
+    }
   };
 
   const stopStartTimer = () => {
-    console.log('Play/pause');
     if (myTimer) {
       clearInterval(myTimer);
       setTimer(null);
