@@ -7,6 +7,7 @@ import { ITimerProps } from './Timer.config';
 const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
   const { connect } = useRenderer();
   const [value, setValue] = useState<number>(0);
+  const [myTimer, setTimer] = useState<any>();
   const {
     sources: { datasource: ds },
   } = useSources();
@@ -54,8 +55,21 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
 
   const stopStartTimer = () => {
     console.log('Play/pause');
-
-//using clearInterval();
+    if (myTimer) {
+      clearInterval(myTimer);
+      setTimer(null);
+    } else {
+      const newTimer = setInterval(() => {
+        setValue((prevTime) => {
+          let newTime = prevTime;
+          if (newTime > 0) {
+            newTime--;
+          }
+          return newTime;
+        });
+      }, 1000);
+      setTimer(newTimer);
+    }
   };
 
   useEffect(() => {
@@ -64,11 +78,11 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
         let newTime = prevTime;
         if (newTime > 0) {
           newTime--;
-        } 
+        }
         return newTime;
       });
     }, 1000);
-
+    setTimer(timer);
     return () => clearInterval(timer);
   }, []);
 
@@ -103,7 +117,7 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
           className={cn('timer-start-button', 'rounded-md bg-gray-400 text-xl w-40 h-12')}
           onClick={stopStartTimer}
         >
-          Stop/Start
+          {myTimer ? 'Stop' : 'Start'}
         </button>
       </div>
     </div>
