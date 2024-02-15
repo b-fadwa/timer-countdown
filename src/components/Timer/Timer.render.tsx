@@ -6,7 +6,7 @@ import { ITimerProps } from './Timer.config';
 
 const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
   const { connect } = useRenderer();
-  const [value, setValue] = useState<Date>(new Date());
+  const [value, setValue] = useState<number>(0);
   const {
     sources: { datasource: ds },
   } = useSources();
@@ -29,14 +29,48 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ds]);
 
+  const formatTime = (time: number) => {
+    if (time >= 0) {
+      const hours = Math.floor(time / 3600);
+      const minutes = Math.floor((time % 3600) / 60);
+      const seconds = Math.floor(time % 60);
+      // Add leading zeros to ensure two-digit format
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+      if (hours > 0) {
+        return `${hours}:${formattedMinutes}:${formattedSeconds}`;
+      } else {
+        return `${formattedMinutes}:${formattedSeconds}`;
+      }
+    } else {
+      return '00:00';
+    }
+  };
+
   const resetTimer = () => {
-    console.log("Reset to 0");
-    
+    console.log('Reset to 0');
   };
 
   const stopStartTimer = () => {
-    console.log("Play/pause")
+    console.log('Play/pause');
+
+//using clearInterval();
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setValue((prevTime) => {
+        let newTime = prevTime;
+        if (newTime > 0) {
+          newTime--;
+        } 
+        return newTime;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div ref={connect} style={style} className={cn(className, classNames)}>
@@ -52,7 +86,9 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
             'h-60 w-60 rounded-full ring ring-gray-400 flex justify-center items-center relative',
           )}
         >
-          <span className={cn('timer-text', 'absolute text-4xl font-mono')}>00:00:00 {value.toLocaleString()}</span>
+          <span className={cn('timer-text', 'absolute text-4xl font-mono')}>
+            {formatTime(value)}
+          </span>
           <button
             className={cn(
               'timer-reset-button',
