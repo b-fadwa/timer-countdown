@@ -20,34 +20,38 @@ const Countdown: FC<ICountdownProps> = ({ header, style, className, classNames =
         <div
           className={cn(
             'countdown-days',
-            'w-32 h-32 border-2 rounded-md border-red-600 font-mono text-2xl flex items-center',
+            'w-40 h-40 border-2 rounded-md bg-black font-mono text-4xl flex flex-col items-center justify-center text-white',
           )}
         >
-          00 days
+          <span>00</span>
+          <span>Days</span>
         </div>
         <div
           className={cn(
             'countdown-hours',
-            'w-32 h-32 border-2 rounded-md border-red-600 font-mono text-2xl flex items-center',
+            'w-40 h-40 border-2 rounded-md bg-black font-mono text-4xl flex flex-col items-center justify-center text-white',
           )}
         >
-          00 hours
+          <span>00</span>
+          <span>Hours</span>
         </div>
         <div
           className={cn(
             'countdown-minutes',
-            'w-32 h-32 border-2 rounded-md border-red-600 font-mono text-2xl flex items-center',
+            'w-40 h-40 border-2 rounded-md bg-black font-mono text-4xl flex flex-col items-center justify-center text-white',
           )}
         >
-          00 minutes
+          <span>00</span>
+          <span>Minutes</span>
         </div>
         <div
           className={cn(
             'countdown-seconds',
-            'w-32 h-32 border-2 rounded-md border-red-600 font-mono text-2xl flex items-center',
+            'w-40 h-40 border-2 rounded-md bg-black font-mono text-4xl flex flex-col items-center justify-center text-white',
           )}
         >
-          00 seconds
+          <span>00</span>
+          <span>Seconds</span>
         </div>
       </div>
     </div>
