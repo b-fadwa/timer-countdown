@@ -65,7 +65,6 @@ const Countdown: FC<ICountdownProps> = ({ header, style, className, classNames =
   //used to decrement the countdown by 0ne during some interval automatically
   useEffect(() => {
     setCountDown(initCountDown());
-    console.log('value ' + value + ' coutdown ' + countDown);
   }, [value]);
 
   useEffect(() => {
@@ -75,15 +74,12 @@ const Countdown: FC<ICountdownProps> = ({ header, style, className, classNames =
         if (newCountDown.seconds > 0) {
           newCountDown.seconds--;
         } else {
-          newCountDown.seconds = 59;
           if (newCountDown.minutes > 0) {
             newCountDown.minutes--;
           } else {
-            newCountDown.minutes = 59;
             if (newCountDown.hours > 0) {
               newCountDown.hours--;
             } else {
-              newCountDown.hours = 23;
               if (newCountDown.days > 0) {
                 newCountDown.days--;
               }
