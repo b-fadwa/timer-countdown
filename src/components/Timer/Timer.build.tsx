@@ -20,7 +20,7 @@ const Timer: FC<ITimerProps> = ({ style, className, classNames = [] }) => {
         <div
           className={cn(
             'timer-content',
-            'h-60 w-60 rounded-full ring ring-gray-400 flex justify-center items-center relative',
+            'h-60 w-60 rounded-full shadow-lg ring ring-gray-400 flex justify-center items-center relative',
           )}
         >
           <span className={cn('timer-text', 'absolute text-4xl font-mono')}>00:00:00</span>
