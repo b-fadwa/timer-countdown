@@ -1,6 +1,6 @@
 import { EComponentKind, T4DComponentConfig } from '@ws-ui/webform-editor';
 import { Settings } from '@ws-ui/webform-editor';
-import { RxTimer } from "react-icons/rx";
+import { RxTimer } from 'react-icons/rx';
 
 import TimerSettings, { BasicSettings } from './Timer.settings';
 
@@ -52,15 +52,14 @@ export default {
       },
     ],
     datasources: {
-      accept: ['string'],
+      accept: ['number'],
     },
   },
   defaultProps: {
-    style:{
-      width:'fit-content'
-    }
+    style: {
+      width: 'fit-content',
+    },
   },
 } as T4DComponentConfig<ITimerProps>;
 
-export interface ITimerProps extends webforms.ComponentProps {
-}
+export interface ITimerProps extends webforms.ComponentProps {}
